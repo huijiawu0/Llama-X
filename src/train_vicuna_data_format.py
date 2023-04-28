@@ -22,7 +22,7 @@ import torch
 import torch.distributed
 import transformers
 from fastchat.conversation import get_default_conv_template, SeparatorStyle
-from fastchat.train.train import rank0_print
+from fastchat.train.train import rank0_print, ModelArguments, DataArguments, TrainingArguments
 from torch.utils.data import Dataset
 from transformers import Trainer
 
@@ -43,26 +43,6 @@ PROMPT_DICT = {
         "### Instruction:\n{instruction}\n\n### Response:"
     ),
 }
-
-
-@dataclass
-class ModelArguments:
-    model_name_or_path: Optional[str] = field(default="facebook/opt-125m")
-
-
-@dataclass
-class DataArguments:
-    data_path: str = field(default=None, metadata={"help": "Path to the training data."})
-
-
-@dataclass
-class TrainingArguments(transformers.TrainingArguments):
-    cache_dir: Optional[str] = field(default=None)
-    optim: str = field(default="adamw_torch")
-    model_max_length: int = field(
-        default=512,
-        metadata={"help": "Maximum sequence length. Sequences will be right padded (and possibly truncated)."},
-    )
 
 
 def safe_save_model_for_hf_trainer(trainer: transformers.Trainer, output_dir: str):
