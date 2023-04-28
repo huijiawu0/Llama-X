@@ -14,7 +14,6 @@
 
 import copy
 import json
-import random
 from dataclasses import dataclass, field
 from typing import Optional, Dict, Sequence
 
@@ -22,7 +21,6 @@ import numpy as np
 import torch
 import torch.distributed
 import transformers
-from datasets import load_dataset
 from fastchat.conversation import get_default_conv_template, SeparatorStyle
 from fastchat.train.train import rank0_print
 from torch.utils.data import Dataset
